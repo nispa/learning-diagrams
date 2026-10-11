@@ -119,4 +119,4 @@ Il corso non raccoglie dati personali: i progressi restano nel browser.
 ## Licenza
 
 - **Codice**: [MIT](LICENSE).
-- **Contenuti didattici** (livelli, testi per gli studenti, icone): [CC BY 4.0](LICENSE-CONTENT). Puoi condividerli e modificarli per qualsiasi scopo, anche commerciale, citando «Diagrammi Passo Passo» con il link a questo repository e indicando cosa hai cambiato.
+- **Contenuti didattici** (livelli, testi per gli studenti, icone): [CC BY 4.0](LICENSE-CONTENT). Puoi condividerli e modificarli per qualsiasi scopo, anche commerciale, citando «Diagrammi Passo Passo» di nispa con il link a questo repository e indicando cosa hai cambiato.

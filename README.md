@@ -119,4 +119,4 @@ The course collects no personal data: progress stays in the browser.
 ## License
 
 - **Code**: [MIT](LICENSE).
-- **Educational content** (levels, texts for students, icons): [CC BY 4.0](LICENSE-CONTENT). You may share and adapt it for any purpose, even commercially, as long as you credit "Diagrammi Passo Passo" with a link to this repository and say what you changed.
+- **Educational content** (levels, texts for students, icons): [CC BY 4.0](LICENSE-CONTENT). You may share and adapt it for any purpose, even commercially, as long as you credit "Diagrammi Passo Passo" by nispa with a link to this repository and say what you changed.
