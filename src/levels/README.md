@@ -1,7 +1,10 @@
 # Livelli
 
-I capitoli sono in `src/levels/it/levels.js`, nell'ordine in cui lo studente li incontra.
+I capitoli sono in `src/levels/<lingua>/levels.js` (`it`, `en`), nell'ordine in cui lo studente li incontra.
 Gli `id` di capitoli e livelli **non cambiano mai**: i progressi salvati li usano.
+Ogni lingua ha gli stessi capitoli e livelli, con gli stessi id, nello stesso ordine, e con le stesse
+risposte a scelta: si traduce tutto, anche i nomi delle variabili, i testi stampati e le uscite attese.
+`npm test` controlla la forma e prova ogni soluzione con le parole chiave della sua lingua.
 
 ## Capitolo
 

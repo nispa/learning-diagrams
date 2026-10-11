@@ -1,88 +1,111 @@
-# Diagrammi Passo Passo
+# Flowcharts Step by Step (Diagrammi Passo Passo)
 
-Impara a **capire un problema** e a **disegnarne la soluzione** con i diagrammi di flusso, un passo alla volta, direttamente nel browser.
+**English** · [Italiano](README.it.md)
 
-Ogni livello chiede una piccola cosa: rispondere a una domanda sul problema, oppure costruire un diagramma con i blocchi. Il diagramma si disegna da solo mentre lo costruisci, si esegue con i dati che scegli e una verifica automatica dice se è giusto, spiegando gli errori in italiano semplice.
+Learn to **understand a problem** and **draw its solution** as a flowchart, one step at a time, right in the browser.
 
-Progetto gemello di [C Passo Passo](https://github.com/nispa/learning-c): stessa idea, stessa architettura, un passo prima del codice.
+Each level asks for one small thing: answer a question about a problem, or build a flowchart with blocks. The flowchart draws itself while you build it, runs with the data you choose, and an automatic check tells you whether it is right, explaining any mistake in plain language. The course is available in English and Italian.
 
-## Il percorso
+Twin project of [C Step by Step](https://github.com/nispa/learning-c): same idea, same architecture, one step before code.
 
-**43 livelli in 7 capitoli**, dalle basi all'autonomia:
+## The course
 
-| Capitolo | Cosa si impara |
+**43 levels in 7 chapters**, from the basics to working on your own:
+
+| Chapter | What you learn |
 | --- | --- |
-| 1. Capire il problema | algoritmo, dati in ingresso, elaborazione, risultati, costanti, casi limite, risolvere a mano |
-| 2. Leggere i diagrammi | le forme ISO 5807, la freccia `←`, seguire una decisione, la tabella di traccia |
-| 3. La sequenza | Leggi, Scrivi, Assegna; trovare un errore; scambio di variabili; prima tabella delle variabili |
-| 4. Le decisioni | Se, confronti, `mod`, decisioni annidate, `e` / `o` / `non`, casi particolari |
-| 5. I cicli | Mentre, Per, Ripeti; cicli infiniti; accumulatore |
-| 6. Schemi ricorrenti | contatore, media, massimo, sentinella, bandierina, algoritmo di Euclide |
-| 7. In autonomia | problemi descritti solo a parole, con l'analisi completa a carico dello studente |
+| 1. Understanding the problem | algorithm, input data, processing, results, constants, edge cases, solving by hand |
+| 2. Reading flowcharts | the ISO 5807 shapes, the `←` arrow, following a decision, the trace table |
+| 3. Sequence | Input, Output, Assign; finding a bug; swapping variables; first variable table |
+| 4. Decisions | If, comparisons, `mod`, nested decisions, `and` / `or` / `not`, special cases |
+| 5. Loops | While, For, Repeat; infinite loops; accumulator |
+| 6. Common patterns | counter, average, maximum, sentinel, flag, Euclid's algorithm |
+| 7. On your own | problems described only in words, with the whole analysis left to the student |
 
-## Caratteristiche
+## Features
 
-- **Niente da installare**: è una pagina statica, tutto gira nel browser.
-- **Editor a blocchi strutturati**: il diagramma è sempre ben formato, quindi lo studente si concentra sulla logica e non sulle frecce. Funziona anche da telefono.
-- **Disegno automatico** con i simboli della norma ISO 5807 (ovale, parallelogramma, rettangolo, rombo); il ciclo Per si disegna com'è davvero (inizializza, controlla, esegue, incrementa). Toccando una forma si va al blocco.
-- **Esecuzione passo passo** con la **tabella di traccia** compilata in automatico e il blocco corrente evidenziato.
-- **Errori spiegati**: *«Non si possono concatenare due confronti come in `0 < x < 10`»*, *«La variabile `soma` non ha ancora un valore… Forse volevi scrivere `somma`?»*, *«Il ciclo con la condizione `i <= 5` non finisce mai»*.
-- **Verifiche che non si ingannano**: ogni livello prova il diagramma con più dati, compresi i casi di confine, e può richiedere strutture precise (un ciclo, un solo Leggi, niente Per…).
-- **Analisi del problema verificata**: nei livelli di autonomia lo studente compila la tabella delle variabili (nome, ruolo, contenuto) e la verifica controlla che corrisponda al diagramma.
-- **Leggibile e accessibile**: font Atkinson Hyperlegible, testo ingrandibile, tema chiaro e scuro, uso completo da tastiera (`Ctrl+Invio` esegue).
-- **Progressi salvati** nel browser.
+- **Nothing to install**: it is a static page, everything runs in the browser.
+- **Structured block editor**: the flowchart is always well formed, so students focus on the logic rather than on the arrows. Works on phones too.
+- **Automatic drawing** with the ISO 5807 symbols (oval, parallelogram, rectangle, diamond); the For loop is drawn as it really works (initialise, check, run, increment). Tapping a shape jumps to its block.
+- **Step-by-step execution** with an automatically filled **trace table** and the current block highlighted.
+- **Explained errors**: *"You cannot chain two comparisons as in `0 < x < 10`"*, *"The variable `sume` has no value yet… Did you mean `sum`?"*, *"The loop with the condition `i <= 5` … probably never ends"*.
+- **Checks that cannot be fooled**: each level tests the flowchart with several inputs, including boundary cases, and can require specific structures (a loop, a single Input, no For…).
+- **Checked problem analysis**: in the later levels the student fills in the variable table (name, role, contents) and the check verifies that it matches the flowchart.
+- **English and Italian**: interface, messages, block keywords and levels are fully translated. Choose the language in the header (or with `?locale=en`); the choice is saved.
+- **Installable app** (PWA) that works offline once opened.
+- **Readable and accessible**: Atkinson Hyperlegible font, adjustable text size, light and dark theme, full keyboard use (`Ctrl+Enter` runs).
+- **Progress saved** in the browser.
 
-## Il linguaggio dei blocchi
+## The block language
 
-| Blocco | Forma | Esempio |
+| Block | Shape | Example |
 | --- | --- | --- |
-| Leggi | parallelogramma | `Leggi n` |
-| Scrivi | parallelogramma | `Scrivi "Somma:", s` (più valori separati da virgola) |
-| Assegna | rettangolo | `s ← s + i` |
-| Se … allora … altrimenti | rombo | `n mod 2 = 0` |
-| Mentre … ripeti | rombo | `i <= n` (controlla prima) |
-| Ripeti … mentre | rombo | `voto < 1 o voto > 10` (controlla dopo) |
-| Per … da … a … passo | rombo | `Per i da 1 a n` |
+| Input | parallelogram | `Input n` |
+| Output | parallelogram | `Output "Sum:", s` (several values separated by commas) |
+| Assign | rectangle | `s ← s + i` |
+| If … then … otherwise | diamond | `n mod 2 = 0` |
+| While … do | diamond | `i <= n` (checks first) |
+| Repeat … while | diamond | `mark < 1 or mark > 10` (checks after) |
+| For … from … to … step | diamond | `For i from 1 to n` |
 
-Operatori: `+ - * / ^`, `div` (quoziente intero), `mod` (resto), `= <> < <= > >=` (anche `≠ ≤ ≥`), `e`, `o`, `non`, `vero`, `falso`. Funzioni: `abs`, `radq`, `intero`, `arrotonda`. Testi tra virgolette, decimali con il punto.
+Operators: `+ - * / ^`, `div` (whole-number quotient), `mod` (remainder), `= <> < <= > >=` (also `≠ ≤ ≥`), `and`, `or`, `not`, `true`, `false`. Functions: `abs`, `sqrt`, `int`, `round`. Text in quotes, decimals with a point.
 
-## Avvio
+In Italian the blocks are Leggi, Scrivi, Assegna, Se, Mentre, Ripeti, Per and the keywords `e`, `o`, `non`, `vero`, `falso`, `radq`, `intero`, `arrotonda`.
 
-Clona o scarica il repository e apri `index.html` nel browser. Fine.
+## Getting started
 
-I font arrivano da Google Fonts; senza connessione la pagina funziona lo stesso con i font di sistema.
+Clone or download the repository and open `index.html` in your browser. That's it.
 
-Per aprire un livello preciso: `index.html#cifre`.
+Fonts come from Google Fonts; without a connection the page still works with system fonts.
 
-## Struttura
+To open a specific level: `index.html#cifre`. To choose the language: `index.html?locale=en`.
+
+## Publishing
+
+It is a static site: just serve the folder. For Cloudflare (Workers with static assets) `wrangler.jsonc` is ready:
 
 ```
-index.html                 la pagina: markup e <script> nell'ordine giusto, nessuna build
-css/app.css                stile
-src/i18n/it.js             tutti i testi per lo studente (messaggi, interfaccia)
-src/core/util.js           traduzione t(), esc(), md(), confronto delle righe, suggerimenti
-src/core/expr.js           espressioni: lettura, calcolo, formattazione
-src/core/flow.js           il diagramma come dato (forma compatta ad array ↔ oggetti)
-src/core/interpreter.js    esegue un diagramma, con limiti e traccia
-src/core/checker.js        verifica un livello e la tabella delle variabili
-src/core/render.js         disegna il diagramma in SVG
-src/core/app.js            interfaccia
-src/levels/it/levels.js    capitoli e livelli
-tests/                     test (node:test)
+npx wrangler login
+npx wrangler deploy
 ```
 
-## Sviluppo
+`.assetsignore` keeps tests and documents out. Alternatively connect the repository to Cloudflare from the dashboard, with `npx wrangler deploy` as the deploy command and no build command.
 
-Serve [Node.js](https://nodejs.org) 20 o più recente, solo per i test. Nessuna dipendenza, nessuna build.
+When served over http/https the page registers `sw.js`: it can be installed as an app and works offline.
+
+## Structure
+
+```
+index.html                 the page: markup and <script> tags in the right order, no build
+css/app.css                styles
+src/i18n/it.js             every text for the student (messages, interface): the reference language
+src/i18n/en.js             the same texts in English
+src/core/util.js           translation t(), esc(), md(), output comparison, suggestions
+src/core/expr.js           expressions: parsing, evaluation, formatting, keywords per language
+src/core/flow.js           the flowchart as data (compact array form ↔ objects)
+src/core/interpreter.js    runs a flowchart, with limits and trace
+src/core/checker.js        checks a level and the variable table
+src/core/render.js         draws the flowchart as SVG
+src/core/app.js            interface
+src/levels/it/levels.js    chapters and levels
+src/levels/en/levels.js    the same levels in English (same ids)
+sw.js                      service worker: offline use
+manifest.webmanifest       the installable app card (icons in icons/)
+tests/                     tests (node:test)
+```
+
+## Development
+
+You need [Node.js](https://nodejs.org) 20 or newer, only for the tests. No dependencies, no build.
 
 ```
 npm test
 ```
 
-I test controllano che ogni livello sia superato dalla sua soluzione e non dal diagramma di partenza, che le risposte delle domande coincidano con l'esecuzione del diagramma mostrato, che ogni testo usato esista (e nessuno sia in più), che `index.html` carichi ogni file e che ogni diagramma si disegni.
+The tests check that every level is passed by its solution and not by its starting flowchart, that quiz answers match the execution of the flowchart shown, that every text used exists (and none is unused), that every language has the same keys and levels as Italian, that `index.html` and `sw.js` include every file and that every flowchart can be drawn.
 
-Le regole del progetto, per persone e agenti, sono in [AGENTS.md](AGENTS.md); il formato dei livelli in [src/levels/README.md](src/levels/README.md).
+The project rules, for people and agents, are in [AGENTS.md](AGENTS.md) (in Italian); the level format is in [src/levels/README.md](src/levels/README.md).
 
-## Licenza
+## License
 
 [MIT](LICENSE)

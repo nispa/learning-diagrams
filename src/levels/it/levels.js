@@ -1,9 +1,9 @@
 // Il percorso: dai concetti di base alla risoluzione autonoma di un problema.
 // Gli id di capitoli e livelli non cambiano mai: i progressi salvati li usano.
-// Formato dei livelli: src/levels/README.md.
+// Formato dei livelli: src/levels/README.md. Ogni lingua ha gli stessi capitoli e livelli, con gli stessi id.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.LEVELS = factory();
+  else (root.LEVELS = root.LEVELS || {}).it = factory();
 })(this, function () {
   'use strict';
 

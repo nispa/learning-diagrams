@@ -1,11 +1,13 @@
 // Funzioni piccole usate ovunque: traduzione dei messaggi, escape dell'HTML, markdown minimo.
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('../i18n/it.js'));
+  if (typeof module === 'object' && module.exports) module.exports = factory({ it: require('../i18n/it.js'), en: require('../i18n/en.js') });
   else root.Util = factory(root.I18N);
 })(this, function (I18N) {
   'use strict';
 
+  // L'italiano è la lingua di riferimento: se una chiave manca, si usa quella.
   let locale = 'it';
+  function setLocale(l) { locale = I18N[l] ? l : 'it'; }
 
   // Un valore può essere a sua volta [chiave, valori]: si traduce in modo ricorsivo.
   function t(key, vals) {
@@ -68,5 +70,5 @@
     return bd <= (name.length <= 3 ? 1 : 2) ? best : null;
   }
 
-  return { t: t, esc: esc, md: md, norm: norm, suggest: suggest };
+  return { t: t, setLocale: setLocale, esc: esc, md: md, norm: norm, suggest: suggest };
 });

@@ -6,14 +6,10 @@
   const U = window.Util, t = U.t, esc = U.esc, md = U.md;
   const Flow = window.Flow, Expr = window.Expr, Render = window.Render;
   const Interpreter = window.Interpreter, Checker = window.Checker;
-  const CHAPTERS = window.LEVELS;
   const KEY = 'diagrammi-passo-passo-v1'; // non cambiarla: dentro ci sono i progressi degli studenti
   const $ = function (id) { return document.getElementById(id); };
   const inl = function (s) { return md(s).replace(/^<p>|<\/p>$/g, ''); };
   const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const ALL = [];
-  CHAPTERS.forEach(function (ch, ci) { ch.levels.forEach(function (lv) { ALL.push({ lv: lv, ch: ch, ci: ci }); }); });
 
   // ---------- salvataggio ----------
   let store = { done: {}, prog: {}, an: {}, inp: {}, quiz: {}, cur: null, theme: 'auto', size: 1 };
@@ -22,6 +18,36 @@
     if (s && typeof s === 'object') store = Object.assign(store, s);
   } catch (e) { /* storage non disponibile: si lavora senza salvare */ }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) { /* idem */ } }
+
+  // ---------- lingua ----------
+  // Ogni lingua ha i suoi livelli, con gli stessi id: i livelli superati valgono in tutte.
+  // Il lavoro in corso invece è per lingua (variabili, testi e parole chiave cambiano);
+  // l'italiano usa le chiavi di prima, così non si perde niente di quello già salvato.
+  let locale = 'it', CHAPTERS = [], ALL = [];
+  const wk = function (id) { return locale === 'it' ? id : locale + ':' + id; };
+  function pickLocale() {
+    let param = null;
+    try { param = new URLSearchParams(location.search).get('locale'); } catch (e) { /* niente parametri */ }
+    // chi aveva già dei progressi li ha fatti in italiano, prima che ci fosse la scelta
+    const old = Object.keys(store.done).length ? 'it' : null;
+    const wanted = [param, store.locale, old].concat(navigator.languages || [navigator.language]);
+    return wanted.map(function (l) { return l && String(l).toLowerCase().split('-')[0]; })
+      .find(function (l) { return l && window.I18N[l] && window.LEVELS[l]; }) || 'en';
+  }
+  function setLocale(l) {
+    locale = l;
+    U.setLocale(l);
+    Expr.setLocale(l);
+    CHAPTERS = window.LEVELS[l];
+    ALL = [];
+    CHAPTERS.forEach(function (ch, ci) { ch.levels.forEach(function (lv) { ALL.push({ lv: lv, ch: ch, ci: ci }); }); });
+    document.documentElement.lang = l;
+    document.title = t('app.brand1') + ' ' + t('app.brand2');
+    document.querySelector('meta[name="description"]').setAttribute('content', t('app.description'));
+    document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    $('locale').value = l;
+  }
 
   const S = { i: 0, prog: [], an: [], insertAt: null, history: [], pending: null, trace: null, ti: 0, err: null, active: null };
   const cur = function () { return ALL[S.i]; };
@@ -99,7 +125,7 @@
 
   // ---------- domande ----------
   function renderQuiz() {
-    const lv = cur().lv, ans = store.quiz[lv.id] || {};
+    const lv = cur().lv, ans = store.quiz[wk(lv.id)] || {};
     let h = '';
     if (lv.show) h += '<figure class="figure paper"><div class="diagram">' + Render.render(Flow.fromArray(lv.show)) + '</div></figure>';
     h += '<form id="quizForm" class="quiz" novalidate>';
@@ -118,7 +144,7 @@
     $('quiz').innerHTML = h;
     const form = $('quizForm');
     form.addEventListener('submit', function (e) { e.preventDefault(); checkQuiz(); });
-    form.addEventListener('input', function () { store.quiz[lv.id] = readQuiz(); save(); });
+    form.addEventListener('input', function () { store.quiz[wk(lv.id)] = readQuiz(); save(); });
   }
 
   function readQuiz() {
@@ -134,7 +160,7 @@
 
   function checkQuiz() {
     const lv = cur().lv, ans = readQuiz();
-    store.quiz[lv.id] = ans;
+    store.quiz[wk(lv.id)] = ans;
     let all = true, first = null;
     lv.questions.forEach(function (q, k) {
       const given = ans[k], missing = given === undefined || String(given).trim() === '';
@@ -158,9 +184,9 @@
   // ---------- diagramma da costruire ----------
   function loadBuild() {
     const lv = cur().lv;
-    S.prog = Flow.fromArray(store.prog[lv.id] || lv.start || []);
-    S.an = (store.an[lv.id] || []).map(function (r) { return Object.assign({}, r); });
-    $('inputs').value = store.inp[lv.id] !== undefined ? store.inp[lv.id] : lv.tests[0].input.join('\n');
+    S.prog = Flow.fromArray(store.prog[wk(lv.id)] || lv.start || []);
+    S.an = (store.an[wk(lv.id)] || []).map(function (r) { return Object.assign({}, r); });
+    $('inputs').value = store.inp[wk(lv.id)] !== undefined ? store.inp[wk(lv.id)] : lv.tests[0].input.join('\n');
     $('analysis').hidden = !lv.analysis;
     if (lv.analysis) renderAnalysis();
     renderEditor();
@@ -171,7 +197,7 @@
   }
 
   function persist() {
-    store.prog[cur().lv.id] = Flow.toArray(S.prog);
+    store.prog[wk(cur().lv.id)] = Flow.toArray(S.prog);
     save();
   }
 
@@ -342,7 +368,7 @@
     $('analysis').innerHTML = h;
   }
 
-  function saveAnalysis() { store.an[cur().lv.id] = S.an; save(); }
+  function saveAnalysis() { store.an[wk(cur().lv.id)] = S.an; save(); }
 
   // ---------- esecuzione ----------
   function inputs() {
@@ -587,13 +613,13 @@
     const tryb = e.target.closest('[data-try]');
     if (tryb) {
       $('inputs').value = JSON.parse(tryb.dataset.try).join('\n');
-      store.inp[cur().lv.id] = $('inputs').value;
+      store.inp[wk(cur().lv.id)] = $('inputs').value;
       save();
       run();
     }
   });
 
-  $('inputs').addEventListener('input', function () { store.inp[cur().lv.id] = $('inputs').value; save(); });
+  $('inputs').addEventListener('input', function () { store.inp[wk(cur().lv.id)] = $('inputs').value; save(); });
   $('btnRun').addEventListener('click', run);
   $('btnStep').addEventListener('click', step);
   $('btnCheck').addEventListener('click', check);
@@ -603,7 +629,7 @@
     armReset(false);
     pushHistory();
     S.prog = Flow.fromArray(cur().lv.start || []);
-    delete store.prog[cur().lv.id];
+    delete store.prog[wk(cur().lv.id)];
     changed(true);
     showConsole('');
   });
@@ -641,13 +667,32 @@
   $('btnSmaller').addEventListener('click', function () { store.size = Math.max(0.85, Math.round((store.size - 0.1) * 100) / 100); save(); applySettings(); });
   $('btnBigger').addEventListener('click', function () { store.size = Math.min(1.5, Math.round((store.size + 0.1) * 100) / 100); save(); applySettings(); });
 
+  // ---------- lingua ----------
+  Object.keys(window.LEVELS).forEach(function (l) {
+    const o = new Option(window.I18N[l]['locale.name'], l);
+    o.lang = l;
+    $('locale').add(o);
+  });
+  $('locale').addEventListener('change', function () {
+    const id = cur().lv.id;
+    store.locale = $('locale').value;
+    save();
+    // un ?locale= nell'indirizzo vincerebbe sulla scelta al prossimo caricamento
+    try { history.replaceState(null, '', location.pathname + '#' + id); } catch (e) { /* in alcuni contesti non si può */ }
+    setLocale(store.locale);
+    applySettings();
+    go(ALL.findIndex(function (x) { return x.lv.id === id; }));
+  });
+
   // ---------- avvio ----------
-  document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+  setLocale(pickLocale());
   if (THEMES.indexOf(store.theme) < 0) store.theme = 'auto';
   if (typeof store.size !== 'number') store.size = 1;
   applySettings();
   const fromHash = ALL.findIndex(function (x) { return '#' + x.lv.id === location.hash; });
   const fromStore = ALL.findIndex(function (x) { return x.lv.id === store.cur; });
   go(fromHash >= 0 ? fromHash : fromStore >= 0 ? fromStore : 0);
+
+  // App installabile e usabile offline; da file:// i service worker non esistono e la pagina va lo stesso.
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(function () { /* resta la pagina normale */ });
 })();

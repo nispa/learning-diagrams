@@ -8,15 +8,28 @@
 
   function Err(key, vals) { const e = new Error(key); e.key = key; e.vals = vals || {}; return e; }
 
-  const WORDS = {
-    e: 'and', and: 'and', o: 'or', or: 'or', non: 'not', not: 'not',
-    mod: 'mod', div: 'div', vero: 'true', falso: 'false',
+  // Le parole del pseudocodice cambiano con la lingua; dentro restano le stesse (and, or, sqrt...).
+  // In italiano si accettano anche and, or, not: li conosce chi arriva dal C.
+  const LANGS = {
+    it: {
+      words: { e: 'and', and: 'and', o: 'or', or: 'or', non: 'not', not: 'not', mod: 'mod', div: 'div', vero: 'true', falso: 'false' },
+      funcs: { abs: 'abs', radq: 'sqrt', intero: 'int', arrotonda: 'round' },
+      bool: ['vero', 'falso'],
+    },
+    en: {
+      words: { and: 'and', or: 'or', not: 'not', mod: 'mod', div: 'div', true: 'true', false: 'false' },
+      funcs: { abs: 'abs', sqrt: 'sqrt', int: 'int', round: 'round' },
+      bool: ['true', 'false'],
+    },
   };
+  let L = LANGS.it;
+  function setLocale(l) { L = LANGS[l] || LANGS.it; }
+
   const FUNCS = {
     abs: { n: [1], f: Math.abs },
-    radq: { n: [1], f: Math.sqrt },
-    intero: { n: [1], f: Math.trunc },
-    arrotonda: { n: [1, 2], f: function (x, d) { const p = Math.pow(10, d || 0); return Math.round(x * p) / p; } },
+    sqrt: { n: [1], f: Math.sqrt },
+    int: { n: [1], f: Math.trunc },
+    round: { n: [1, 2], f: function (x, d) { const p = Math.pow(10, d || 0); return Math.round(x * p) / p; } },
   };
   // I più lunghi prima; ":" è la divisione come a scuola, "%" il resto come in C.
   const SYM = [
@@ -41,7 +54,7 @@
         i += m[0].length; continue;
       }
       if ((m = /^[A-Za-zÀ-ÖØ-öø-ÿ_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*/.exec(rest))) {
-        const k = WORDS[m[0].toLowerCase()];
+        const k = L.words[m[0].toLowerCase()];
         out.push(k ? { type: 'op', v: k, text: m[0] } : { type: 'id', v: m[0], text: m[0] });
         i += m[0].length; continue;
       }
@@ -179,7 +192,7 @@
         return !v;
       }
       case 'call': {
-        const f = FUNCS[n.name.toLowerCase()];
+        const f = FUNCS[L.funcs[n.name.toLowerCase()]];
         if (!f) throw Err('run.noFunc', { name: n.name });
         if (f.n.indexOf(n.args.length) < 0) throw Err('run.funcArgs', { name: n.name });
         const a = n.args.map(function (x) { const v = evaluate(x, vars); num(v, n.name); return v; });
@@ -238,7 +251,7 @@
 
   // Come lo vede lo studente: niente 0.30000000000000004, niente -0.
   function format(v) {
-    if (typeof v === 'boolean') return v ? 'vero' : 'falso';
+    if (typeof v === 'boolean') return L.bool[v ? 0 : 1];
     if (typeof v === 'number') {
       if (!isFinite(v)) return String(v);
       const r = Math.round(v * 1e6) / 1e6;
@@ -252,8 +265,8 @@
   }
   function isReserved(s) {
     const k = s.toLowerCase();
-    return k in WORDS || k in FUNCS;
+    return k in L.words || k in L.funcs;
   }
 
-  return { parse: parse, parseList: parseList, evaluate: evaluate, names: names, format: format, isName: isName, isReserved: isReserved, FUNCS: FUNCS };
+  return { parse: parse, parseList: parseList, evaluate: evaluate, names: names, format: format, isName: isName, isReserved: isReserved, setLocale: setLocale };
 });

@@ -1,12 +1,23 @@
 // Tutti i testi per lo studente: interfaccia, errori del diagramma, esiti della verifica.
 // Le parole tra {graffe} sono segnaposto; `codice` e **grassetto** sono resi da Util.md().
+// È la lingua di riferimento: ogni altra lingua (src/i18n/<codice>.js) ha le stesse chiavi e gli stessi segnaposto.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.I18N = factory();
+  else (root.I18N = root.I18N || {}).it = factory();
 })(this, function () {
   'use strict';
-  const it = {
+  return {
+    'locale.name': 'Italiano',
+    'app.brand1': 'Diagrammi',
+    'app.brand2': 'Passo Passo',
+    'app.description': 'Impara ad analizzare i problemi e a disegnare diagrammi di flusso, un passo alla volta, nel browser.',
+
     // --- interfaccia ---
+    'ui.skip': 'Vai al contenuto',
+    'ui.nav': 'Capitoli e livelli',
+    'ui.view': 'Vista',
+    'ui.pager': 'Livello precedente e successivo',
+    'ui.locale': 'Lingua',
     'ui.levels': 'Livelli',
     'ui.progress': '{done} di {total} livelli',
     'ui.chapter': 'Capitolo {n} · {title}',
@@ -116,6 +127,13 @@
     'aria.to': 'Valore finale',
     'aria.step': 'Passo',
 
+    // --- disegno ---
+    'draw.start': 'Inizio',
+    'draw.end': 'Fine',
+    'draw.yes': 'V',
+    'draw.no': 'F',
+    'draw.label': 'Diagramma di flusso',
+
     // --- traccia passo passo ---
     'trace.read': 'Legge il dato **{val}** e lo mette in `{name}`.',
     'trace.write': 'Scrive: **{text}**',
@@ -193,5 +211,4 @@
     'an.notRead': '`{name}` è segnata come dato in ingresso, ma nessun blocco **Leggi** la legge.',
     'an.notPrinted': '`{name}` è segnata come risultato, ma nessun blocco **Scrivi** la scrive.',
   };
-  return { it: it };
 });

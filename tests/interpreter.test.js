@@ -97,3 +97,16 @@ test('andata e ritorno della forma compatta', () => {
   const arr = [['leggi', 'n'], ['per', 'i', '1', 'n', [['se', 'i > 1', [['scrivi', 'i']], []]], '2'], ['ripeti', [['assegna', 'n', 'n - 1']], 'n > 0']];
   assert.deepStrictEqual(Flow.toArray(Flow.fromArray(arr)), arr);
 });
+
+test('in inglese le parole chiave sono inglesi', () => {
+  Expr.setLocale('en');
+  try {
+    assert.strictEqual(ev('x > 0 and not (x = 5) or false', { x: 3 }), true);
+    assert.strictEqual(ev('sqrt(16) + int(2.7) + round(1.25, 1)'), 7.3);
+    assert.strictEqual(Expr.format(true), 'true');
+    assert.strictEqual(Expr.isReserved('round'), true);
+    // le parole italiane tornano nomi qualsiasi
+    assert.strictEqual(Expr.isReserved('e'), false);
+    assert.strictEqual(run([['assegna', 'and', '1']]).error.key, 'block.reserved');
+  } finally { Expr.setLocale('it'); }
+});

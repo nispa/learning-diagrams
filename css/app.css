@@ -89,12 +89,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 .brand { display: flex; align-items: center; gap: .5rem; font-weight: 800; font-size: 1.05rem; letter-spacing: -.01em; }
 .brand em { font-style: normal; color: var(--accent); }
-.logo { fill: none; stroke: var(--ink); stroke-width: 1.6; }
+.logo { flex: none; fill: none; stroke: var(--ink); stroke-width: 1.6; }
 .logo path:nth-of-type(2) { fill: var(--accent-soft); stroke: var(--accent); }
 .meter { display: flex; align-items: center; gap: .6rem; margin-left: auto; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .meter .bar { width: 6rem; height: .4rem; border-radius: 1rem; background: var(--surface-2); overflow: hidden; border: 1px solid var(--line); }
 .meter .bar span { display: block; height: 100%; background: var(--ok); }
-.settings { display: flex; gap: .15rem; }
+.settings { display: flex; align-items: center; gap: .15rem; }
+.locale { min-height: 2.6rem; padding: .3rem .4rem; border: 1.5px solid transparent; border-radius: var(--radius); background: transparent; font-weight: 600; cursor: pointer; }
+.locale:hover { background: var(--surface-2); }
+.locale option { background: var(--surface); color: var(--ink); }
 .nav-toggle { display: none; }
 
 /* ---------- impaginazione ---------- */
@@ -335,9 +338,10 @@ h1:focus { outline: none; }
 @media (max-width: 34rem) {
   .top { padding: .4rem .75rem; gap: .25rem .4rem; flex-wrap: wrap; }
   .brand { flex: 1; min-width: 0; }
-  .brand span { font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand > span { font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .settings .btn.icon { min-width: 2.25rem; padding: .3rem .3rem; }
-  .meter { order: 5; width: 100%; margin: 0; }
+  .meter { order: 5; flex: 1 0 60%; margin: 0; }
+  .locale { order: 6; min-height: 2.2rem; }
   .nav-toggle span { display: none; }
   .an-head { display: none; }
   .an-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 2.4rem; padding-bottom: .5rem; border-bottom: 1px dashed var(--line); }

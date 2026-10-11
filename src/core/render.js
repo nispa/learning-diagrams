@@ -3,12 +3,13 @@
 // Ogni struttura si dispone su un asse centrale: una disposizione restituisce
 // { l, r, h } (ingombro a sinistra e a destra dell'asse, altezza) e draw(cx, y).
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.Render = factory();
-})(this, function () {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./util.js'));
+  else root.Render = factory(root.Util);
+})(this, function (Util) {
   'use strict';
 
   const FS = 13, CW = FS * 0.62, LH = 17, GAP = 24, WRAP = 26;
+  const t = Util.t;
   let uid = 0, cur = {};
 
   function esc(s) {
@@ -108,7 +109,7 @@
           s += B.draw(x, by);
           s += path([[x, by + B.h], [x, end], [cx, end]]);
         });
-        s += label('V', cx + d.w / 2 + 6, my - 7, 'start') + label('F', cx - d.w / 2 - 6, my - 7, 'end');
+        s += label(esc(t('draw.yes')), cx + d.w / 2 + 6, my - 7, 'start') + label(esc(t('draw.no')), cx - d.w / 2 - 6, my - 7, 'end');
         return s + dot(cx, end);
       },
     };
@@ -128,9 +129,9 @@
           s += path([[cx, y + dy + d.h], [cx, y + by]], !B.join) + B.draw(cx, y + by);
           s += path([[cx, y + by + B.h], [cx, y + back], [cx - L, y + back], [cx - L, jy], [cx, jy]], true);
         }
-        s += label('V', cx + 7, y + dy + d.h + 15, 'start');
+        s += label(esc(t('draw.yes')), cx + 7, y + dy + d.h + 15, 'start');
         s += path([[cx + d.w / 2, my], [cx + R, my], [cx + R, y + h], [cx, y + h]]);
-        s += label('F', cx + d.w / 2 + 6, my - 7, 'start');
+        s += label(esc(t('draw.no')), cx + d.w / 2 + 6, my - 7, 'start');
         return s + dot(cx, y + h);
       },
     };
@@ -150,9 +151,9 @@
         s += d.draw(cx, y + dTop);
         const my = y + dTop + d.h / 2;
         s += path([[cx - d.w / 2, my], [cx - L, my], [cx - L, jy], [cx, jy]], true);
-        s += label('V', cx - d.w / 2 - 6, my - 7, 'end');
+        s += label(esc(t('draw.yes')), cx - d.w / 2 - 6, my - 7, 'end');
         s += path([[cx, y + dTop + d.h], [cx, y + h]]);
-        s += label('F', cx + 7, y + dTop + d.h + 15, 'start');
+        s += label(esc(t('draw.no')), cx + 7, y + dTop + d.h + 15, 'start');
         return s;
       },
     };
@@ -160,8 +161,8 @@
 
   function block(b) {
     switch (b.t) {
-      case 'leggi': return node('io', 'Leggi ' + show(b.v), b.id);
-      case 'scrivi': return node('io', 'Scrivi ' + show(b.e), b.id);
+      case 'leggi': return node('io', t('blk.leggi') + ' ' + show(b.v), b.id);
+      case 'scrivi': return node('io', t('blk.scrivi') + ' ' + show(b.e), b.id);
       case 'assegna': return node('proc', show(b.v) + ' ← ' + show(b.e), b.id);
       case 'se': return ifLayout(b);
       case 'mentre': return whileLayout(node('dec', show(b.c), b.id), seq(b.body.map(block)));
@@ -181,10 +182,10 @@
   function render(list, opts) {
     opts = opts || {};
     cur = { active: opts.active, error: opts.error, mk: 'fc-ah-' + (++uid) };
-    const L = seq([node('term', 'Inizio')].concat(list.map(block), [node('term', 'Fine')]));
+    const L = seq([node('term', t('draw.start'))].concat(list.map(block), [node('term', t('draw.end'))]));
     const pad = 18, W = Math.ceil(L.l + L.r + pad * 2), H = Math.ceil(L.h + pad * 2);
     return '<svg class="fc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '"' +
-      ' role="img" aria-label="' + esc(opts.label || 'Diagramma di flusso') + '">' +
+      ' role="img" aria-label="' + esc(opts.label || t('draw.label')) + '">' +
       '<defs><marker id="' + cur.mk + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">' +
       '<path class="fc-ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>' +
       L.draw(pad + L.l, pad) + '</svg>';
