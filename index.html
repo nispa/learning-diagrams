@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagrammi Passo Passo</title>
+<meta name="description" content="Impara ad analizzare i problemi e a disegnare diagrammi di flusso, un passo alla volta, nel browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Atkinson+Hyperlegible+Next:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+
+<header class="top">
+  <button id="btnLevels" class="btn ghost nav-toggle" type="button" aria-controls="nav" aria-expanded="false">
+    <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg>
+    <span data-i18n="ui.levels">Livelli</span>
+  </button>
+  <div class="brand">
+    <svg viewBox="0 0 28 28" width="26" height="26" aria-hidden="true" class="logo">
+      <rect x="7" y="1.5" width="14" height="6" rx="3"/><path d="M14 7.5v3"/><path d="M14 10.5l7 5-7 5-7-5z"/><path d="M14 20.5v3"/><rect x="9" y="23.5" width="10" height="3" rx="1.5"/>
+    </svg>
+    <span>Diagrammi <em>Passo Passo</em></span>
+  </div>
+  <div class="meter" id="progress" aria-live="polite"></div>
+  <div class="settings">
+    <button id="btnSmaller" class="btn ghost icon" type="button" data-i18n-aria="ui.smaller" aria-label="Testo più piccolo">A−</button>
+    <button id="btnBigger" class="btn ghost icon" type="button" data-i18n-aria="ui.bigger" aria-label="Testo più grande">A+</button>
+    <button id="btnTheme" class="btn ghost icon" type="button" aria-label="Cambia tema">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 3a7 7 0 0 1 0 14z" class="fillme"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav id="nav" class="nav" aria-label="Capitoli e livelli"></nav>
+  <div id="navBack" class="nav-back" hidden></div>
+
+  <main id="main">
+    <section class="level" aria-labelledby="lvTitle">
+      <p class="eyebrow" id="lvEyebrow"></p>
+      <h1 id="lvTitle" tabindex="-1"></h1>
+      <div id="lvLearn" class="learn"></div>
+      <div id="lvTask" class="task"></div>
+      <details id="lvHint" class="hint"><summary data-i18n="ui.hint">Suggerimento</summary><div id="lvHintBody"></div></details>
+    </section>
+
+    <section id="quiz" class="quiz-wrap" hidden></section>
+
+    <section id="build" hidden>
+      <section id="analysis" class="analysis" aria-labelledby="anTitle" hidden></section>
+
+      <div class="tabs" role="tablist" aria-label="Vista">
+        <button id="tabBlocks" class="tab" type="button" role="tab" aria-selected="true" aria-controls="paneBlocks" data-i18n="ui.blocks">Blocchi</button>
+        <button id="tabDiagram" class="tab" type="button" role="tab" aria-selected="false" aria-controls="paneDiagram" data-i18n="ui.diagram">Diagramma</button>
+      </div>
+      <div class="work" id="work" data-tab="blocks">
+        <section class="pane" id="paneBlocks" aria-label="Blocchi" data-i18n-aria="ui.blocks">
+          <div class="pane-head">
+            <h2 data-i18n="ui.blocks">Blocchi</h2>
+            <div class="pane-tools">
+              <button id="btnUndo" class="btn ghost small" type="button" data-i18n="ui.undo" disabled>Annulla</button>
+              <button id="btnReset" class="btn ghost small" type="button">Ricomincia</button>
+            </div>
+          </div>
+          <div class="term-row" aria-hidden="true"><span class="term">Inizio</span></div>
+          <div id="blocks" class="blocks"></div>
+          <div class="term-row" aria-hidden="true"><span class="term">Fine</span></div>
+        </section>
+        <section class="pane paper" id="paneDiagram" aria-label="Diagramma" data-i18n-aria="ui.diagram">
+          <div class="pane-head"><h2 data-i18n="ui.diagram">Diagramma</h2><span class="legend" aria-hidden="true" data-i18n="ui.legend">tocca un blocco per modificarlo</span></div>
+          <div id="diagram" class="diagram"></div>
+        </section>
+      </div>
+
+      <div class="runbar">
+        <div class="inputs">
+          <label for="inputs"><span data-i18n="ui.inputs">Dati in ingresso</span> <small data-i18n="ui.inputsHelp">uno per riga, nell'ordine in cui il diagramma li legge</small></label>
+          <textarea id="inputs" rows="3" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+        </div>
+        <div class="actions">
+          <button id="btnRun" class="btn" type="button" title="Ctrl+Invio" data-i18n="ui.run">Esegui</button>
+          <button id="btnStep" class="btn" type="button" data-i18n="ui.step">Passo passo</button>
+          <button id="btnCheck" class="btn primary" type="button" data-i18n="ui.check">Verifica</button>
+        </div>
+      </div>
+      <div id="console" class="console" aria-live="polite"></div>
+    </section>
+
+    <section id="done" class="done" tabindex="-1" hidden></section>
+
+    <nav class="pager" aria-label="Livello precedente e successivo">
+      <button id="btnPrev" class="btn ghost" type="button">← <span data-i18n="ui.prev">Precedente</span></button>
+      <button id="btnNext" class="btn ghost" type="button"><span data-i18n="ui.next">Successivo</span> →</button>
+    </nav>
+  </main>
+</div>
+
+<script src="src/i18n/it.js"></script>
+<script src="src/core/util.js"></script>
+<script src="src/core/expr.js"></script>
+<script src="src/core/flow.js"></script>
+<script src="src/core/interpreter.js"></script>
+<script src="src/core/checker.js"></script>
+<script src="src/core/render.js"></script>
+<script src="src/levels/it/levels.js"></script>
+<script src="src/core/app.js"></script>
+</body>
+</html>

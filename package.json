@@ -1,0 +1,13 @@
+{
+  "name": "diagrammi-passo-passo",
+  "version": "1.0.0",
+  "description": "Corso interattivo per imparare ad analizzare i problemi e a disegnare diagrammi di flusso, tutto nel browser",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
