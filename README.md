@@ -6,7 +6,7 @@ Learn to **understand a problem** and **draw its solution** as a flowchart, one 
 
 Each level asks for one small thing: answer a question about a problem, or build a flowchart with blocks. The flowchart draws itself while you build it, runs with the data you choose, and an automatic check tells you whether it is right, explaining any mistake in plain language. The course is available in English and Italian.
 
-**▶ Try it: [diagrammi-passo-passo.nisspa.workers.dev](https://diagrammi-passo-passo.nisspa.workers.dev/?locale=en)** — nothing to install, works on phones and offline, can be installed as an app.
+**▶ Try it: [nispa.github.io/learning-diagrams](https://nispa.github.io/learning-diagrams/?locale=en)** — nothing to install, works on phones and offline, can be installed as an app.
 
 ![A level in English: the For loop runs step by step, the current block is highlighted in the editor and in the flowchart](docs/img/screenshot-en.png)
 
@@ -66,14 +66,9 @@ To open a specific level: `index.html#cifre`. To choose the language: `index.htm
 
 ## Publishing
 
-It is a static site: just serve the folder. For Cloudflare (Workers with static assets) `wrangler.jsonc` is ready:
+It is a static site with no build: it is published with **GitHub Pages** straight from the `main` branch (Settings → Pages → Deploy from a branch → `main`, `/`). Every push updates the site. `.nojekyll` tells GitHub to serve the files as they are.
 
-```
-npx wrangler login
-npx wrangler deploy
-```
-
-`.assetsignore` keeps tests and documents out. Alternatively connect the repository to Cloudflare from the dashboard, with `npx wrangler deploy` as the deploy command and no build command.
+To publish it elsewhere, serve the folder with any static web server.
 
 When served over http/https the page registers `sw.js`: it can be installed as an app and works offline.
 

@@ -6,7 +6,7 @@ Impara a **capire un problema** e a **disegnarne la soluzione** con i diagrammi 
 
 Ogni livello chiede una piccola cosa: rispondere a una domanda sul problema, oppure costruire un diagramma con i blocchi. Il diagramma si disegna da solo mentre lo costruisci, si esegue con i dati che scegli e una verifica automatica dice se è giusto, spiegando gli errori in parole semplici. Il corso è in italiano e in inglese.
 
-**▶ Provalo: [diagrammi-passo-passo.nisspa.workers.dev](https://diagrammi-passo-passo.nisspa.workers.dev/?locale=it)**: niente da installare, funziona da telefono e senza connessione, si installa come app.
+**▶ Provalo: [nispa.github.io/learning-diagrams](https://nispa.github.io/learning-diagrams/?locale=it)**: niente da installare, funziona da telefono e senza connessione, si installa come app.
 
 ![Un livello sul telefono, in tema scuro: il diagramma unisce due confronti come 0 < x < 10 e il messaggio spiega come scriverli](docs/img/screenshot-it.png)
 
@@ -66,14 +66,9 @@ Per aprire un livello preciso: `index.html#cifre`. Per scegliere la lingua: `ind
 
 ## Pubblicazione
 
-È un sito statico: basta servire la cartella. Su Cloudflare (Workers con static assets) c'è già `wrangler.jsonc`:
+È un sito statico senza build: si pubblica con **GitHub Pages** direttamente dal ramo `main` (Settings → Pages → Deploy from a branch → `main`, `/`). Ogni push aggiorna il sito. `.nojekyll` dice a GitHub di servire i file così come sono.
 
-```
-npx wrangler login
-npx wrangler deploy
-```
-
-`.assetsignore` tiene fuori test e documenti. In alternativa si collega il repository a Cloudflare dalla dashboard, con comando di deploy `npx wrangler deploy` e nessun comando di build.
+Per pubblicarlo altrove basta un qualsiasi server web statico che serva la cartella.
 
 Servita in http/https la pagina registra `sw.js`: si può installare come app e funziona offline.
 

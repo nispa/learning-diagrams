@@ -1,7 +1,0 @@
-// Pubblicazione su Cloudflare: è un sito statico, nessuna build.
-// `npx wrangler deploy` carica la cartella, tranne quello che c'è in .assetsignore.
-{
-  "name": "diagrammi-passo-passo",
-  "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./" }
-}

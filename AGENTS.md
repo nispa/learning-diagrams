@@ -6,8 +6,9 @@ lo esegue e ogni livello viene verificato da test. Progetto gemello di `nispa/le
 
 - Avvio: apri `index.html` (funziona anche da file, senza server). `#id-livello` apre un livello,
   `?locale=en` sceglie la lingua.
-- Servita in http/https è una PWA: `sw.js` conserva i file per l'uso offline. Pubblicazione su
-  Cloudflare con `npx wrangler deploy` (`wrangler.jsonc`, `.assetsignore`).
+- Servita in http/https è una PWA: `sw.js` conserva i file per l'uso offline. Si pubblica con
+  GitHub Pages dal ramo `main` (https://nispa.github.io/learning-diagrams/): ogni push aggiorna il sito.
+  Tutti i percorsi restano relativi, perché il sito vive in una sottocartella.
 - Test: `npm test` (usa `node --test`, nessuna dipendenza da installare).
 
 ## Struttura
