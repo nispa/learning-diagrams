@@ -7,6 +7,8 @@
   const Flow = window.Flow, Expr = window.Expr, Render = window.Render;
   const Interpreter = window.Interpreter, Checker = window.Checker;
   const KEY = 'diagrammi-passo-passo-v1'; // non cambiarla: dentro ci sono i progressi degli studenti
+  // modulo di segnalazione su GitHub, con il livello già compilato (.github/ISSUE_TEMPLATE/problema.yml)
+  const REPORT = 'https://github.com/nispa/learning-diagrams/issues/new?template=problema.yml&livello=';
   const $ = function (id) { return document.getElementById(id); };
   const inl = function (s) { return md(s).replace(/^<p>|<\/p>$/g, ''); };
   const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -62,6 +64,7 @@
     Object.assign(S, { insertAt: null, history: [], pending: null, trace: null, err: null, active: null });
     $('lvEyebrow').textContent = t('ui.chapter', { n: c.ci + 1, title: c.ch.title });
     $('lvTitle').textContent = lv.title;
+    $('report').href = REPORT + encodeURIComponent(lv.id);
     $('lvLearn').hidden = !lv.learn;
     $('lvLearn').innerHTML = lv.learn ? '<h2>' + esc(t('ui.learn')) + '</h2>' + md(lv.learn) : '';
     $('lvTask').innerHTML = md(lv.task);

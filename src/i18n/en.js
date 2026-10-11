@@ -18,6 +18,7 @@
     'ui.view': 'View',
     'ui.pager': 'Previous and next level',
     'ui.locale': 'Language',
+    'ui.report': 'Found a mistake or have an idea? Let us know',
     'ui.levels': 'Levels',
     'ui.progress': '{done} of {total} levels',
     'ui.chapter': 'Chapter {n} · {title}',

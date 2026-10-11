@@ -1,0 +1,26 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Diagrammi Passo Passo contributors
+
+The educational content of this project is licensed under CC BY 4.0:
+  - the levels, in src/levels/ (texts, questions, flowcharts, test data)
+  - the texts for students, in src/i18n/
+  - the icons, in icons/
+
+You are free to share and adapt this material for any purpose, even commercially,
+as long as you give appropriate credit, provide a link to the license, and indicate
+if changes were made.
+
+Suggested credit:
+  "Diagrammi Passo Passo" (https://github.com/nispa/learning-diagrams), CC BY 4.0
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+The source code (everything else) is licensed under the MIT License: see LICENSE.
+
+---
+
+I contenuti didattici di questo progetto (livelli, testi per gli studenti, icone) sono
+distribuiti con licenza Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0):
+puoi condividerli e modificarli per qualsiasi scopo, citando la fonte e indicando le modifiche.
+Il codice è distribuito con licenza MIT (vedi LICENSE).

@@ -1,0 +1,16 @@
+name: Idea o nuovo livello · Idea or new level
+description: Un livello da aggiungere, una spiegazione da migliorare, una lingua nuova · A level to add, an explanation to improve, a new language
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: L'idea · The idea
+      description: Se è un livello, scrivi il problema e cosa dovrebbe imparare lo studente. · If it is a level, describe the problem and what the student should learn.
+    validations:
+      required: true
+  - type: textarea
+    id: contesto
+    attributes:
+      label: Dove la useresti? · Where would you use it?
+      description: Classe, età, tipo di scuola… (facoltativo) · Class, age, kind of school… (optional)

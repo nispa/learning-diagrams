@@ -6,6 +6,10 @@ Learn to **understand a problem** and **draw its solution** as a flowchart, one 
 
 Each level asks for one small thing: answer a question about a problem, or build a flowchart with blocks. The flowchart draws itself while you build it, runs with the data you choose, and an automatic check tells you whether it is right, explaining any mistake in plain language. The course is available in English and Italian.
 
+**▶ Try it: [diagrammi-passo-passo.nisspa.workers.dev](https://diagrammi-passo-passo.nisspa.workers.dev/?locale=en)** — nothing to install, works on phones and offline, can be installed as an app.
+
+![A level in English: the For loop runs step by step, the current block is highlighted in the editor and in the flowchart](docs/img/screenshot-en.png)
+
 Twin project of [C Step by Step](https://github.com/nispa/learning-c): same idea, same architecture, one step before code.
 
 ## The course
@@ -106,6 +110,13 @@ The tests check that every level is passed by its solution and not by its starti
 
 The project rules, for people and agents, are in [AGENTS.md](AGENTS.md) (in Italian); the level format is in [src/levels/README.md](src/levels/README.md).
 
+## Feedback and contributions
+
+Found a mistake, a confusing explanation, or have an idea for a level? Every level has a **"Found a mistake or have an idea?"** link that opens a [GitHub issue](https://github.com/nispa/learning-diagrams/issues/new/choose) with the level already filled in. Teachers who try it with a class are especially welcome: tell us the age and what worked.
+
+The course collects no personal data: progress stays in the browser.
+
 ## License
 
-[MIT](LICENSE)
+- **Code**: [MIT](LICENSE).
+- **Educational content** (levels, texts for students, icons): [CC BY 4.0](LICENSE-CONTENT). You may share and adapt it for any purpose, even commercially, as long as you credit "Diagrammi Passo Passo" with a link to this repository and say what you changed.

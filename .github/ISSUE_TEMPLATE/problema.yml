@@ -1,0 +1,43 @@
+name: Problema · Problem
+description: Qualcosa non funziona, un testo è sbagliato o poco chiaro · Something is broken, wrong or unclear
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Grazie! Ogni segnalazione migliora il corso. · Thank you! Every report makes the course better.
+  - type: input
+    id: livello
+    attributes:
+      label: Livello · Level
+      description: L'indirizzo finisce con #id-del-livello (per esempio #cifre) · The address ends with #level-id (for example #cifre)
+      placeholder: cifre
+  - type: textarea
+    id: cosa
+    attributes:
+      label: Cosa è successo? · What happened?
+      description: Cosa hai fatto, cosa ti aspettavi e cosa è successo invece. Puoi incollare il diagramma o uno screenshot. · What you did, what you expected and what happened instead. You can paste a screenshot.
+    validations:
+      required: true
+  - type: dropdown
+    id: lingua
+    attributes:
+      label: Lingua · Language
+      options:
+        - Italiano
+        - English
+  - type: input
+    id: dispositivo
+    attributes:
+      label: Dispositivo e browser · Device and browser
+      placeholder: Chromebook, Chrome · iPhone, Safari · …
+  - type: dropdown
+    id: chi
+    attributes:
+      label: Chi sei? · Who are you?
+      description: Facoltativo, ci aiuta a capire chi usa il corso · Optional, it helps us understand who uses the course
+      options:
+        - Studente · Student
+        - Insegnante · Teacher
+        - Genitore · Parent
+        - Altro · Other

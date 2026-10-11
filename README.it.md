@@ -6,6 +6,10 @@ Impara a **capire un problema** e a **disegnarne la soluzione** con i diagrammi 
 
 Ogni livello chiede una piccola cosa: rispondere a una domanda sul problema, oppure costruire un diagramma con i blocchi. Il diagramma si disegna da solo mentre lo costruisci, si esegue con i dati che scegli e una verifica automatica dice se è giusto, spiegando gli errori in parole semplici. Il corso è in italiano e in inglese.
 
+**▶ Provalo: [diagrammi-passo-passo.nisspa.workers.dev](https://diagrammi-passo-passo.nisspa.workers.dev/?locale=it)**: niente da installare, funziona da telefono e senza connessione, si installa come app.
+
+![Un livello sul telefono, in tema scuro: il diagramma unisce due confronti come 0 < x < 10 e il messaggio spiega come scriverli](docs/img/screenshot-it.png)
+
 Progetto gemello di [C Passo Passo](https://github.com/nispa/learning-c): stessa idea, stessa architettura, un passo prima del codice.
 
 ## Il percorso
@@ -106,6 +110,13 @@ I test controllano che ogni livello sia superato dalla sua soluzione e non dal d
 
 Le regole del progetto, per persone e agenti, sono in [AGENTS.md](AGENTS.md); il formato dei livelli in [src/levels/README.md](src/levels/README.md).
 
+## Segnalazioni e contributi
+
+Hai trovato un errore, una spiegazione poco chiara o hai un'idea per un livello? In ogni livello c'è il link **«Hai trovato un errore o hai un'idea?»**, che apre una [segnalazione su GitHub](https://github.com/nispa/learning-diagrams/issues/new/choose) con il livello già compilato. Sono benvenuti soprattutto gli insegnanti che lo provano in classe: raccontateci l'età degli studenti e cosa ha funzionato.
+
+Il corso non raccoglie dati personali: i progressi restano nel browser.
+
 ## Licenza
 
-[MIT](LICENSE)
+- **Codice**: [MIT](LICENSE).
+- **Contenuti didattici** (livelli, testi per gli studenti, icone): [CC BY 4.0](LICENSE-CONTENT). Puoi condividerli e modificarli per qualsiasi scopo, anche commerciale, citando «Diagrammi Passo Passo» con il link a questo repository e indicando cosa hai cambiato.
